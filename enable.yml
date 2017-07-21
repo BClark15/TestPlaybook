@@ -1,0 +1,13 @@
+---
+  - hosts: SAS_Test
+    connection: local
+    tasks:
+      - name: go into enable mode
+        staging_ios:
+          obm_ipv4: "{{obm_ipv4}}"
+          port: " {{port}} "
+          username: root
+          password:  GDTlabs123
+          command: enable
+          enable: False
+      - debug: var=enable
