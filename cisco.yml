@@ -1,0 +1,43 @@
+---
+
+- hosts: test
+  gather_facts: true
+  connection: local
+
+  vars:
+      conn:
+         transport: cli
+
+  tasks:
+  - wait_for:
+      host: 10.65.0.50
+      port: 3010
+      delay: 3
+      state: drained
+      connect_timeout: 20
+
+
+  - name: do a show run
+    ios_command:
+       provider: "{{conn}}"
+       commands:
+               # - enable
+               # - show version
+               #- show ip int br
+         - show run
+       host: 10.65.0.50 
+       port: 3010
+       username: root
+       password: GDTlabs123
+    register: this_ver
+
+  - name: saving the config
+    copy:
+      content: "{{ this_ver.stdout[0] }}"
+      dest: "/home/devadmin/playbooks/playbooks_billy/backup_config.txt"
+      #remote_src: yes
+      #src: "home/devadmin/playbooks/playbooks_billy/output.txt"
+      #url: "ftp://gdtlabs:GDTlabs123@10.64.4.52/SAS/"
+      #dest: "ftp://gdtlabs:GDTlabs123@10.64.4.52/SAS/output.txt"
+
+
