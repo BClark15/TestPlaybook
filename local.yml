@@ -4,8 +4,8 @@
     tasks:
       - name: go into enable mode
         staging_ios:
-          obm_ipv4: "{{obm_ipv4}}"
-          port: " {{port}} "
+          obm_ipv4: 10.65.0.50
+          port: 3010
           username: root
           password:  GDTlabs123
           command: enable
